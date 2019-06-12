@@ -202,8 +202,12 @@ final class BaseWriter
 
 				$h = ($m[1] / Mpdf::SCALE);
 				// Update/overwrite the lowest bottom of printing y value for a column
-				$this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'] = max($this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'], $this->mpdf->y + $h);
-
+				if(array_key_exists($this->mpdf->CurrCol, $this->mpdf->ColDetails)) {
+					$this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'] = max($this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'], $this->mpdf->y + $h);
+				} else {
+					$this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'] = $this->mpdf->y + $h;
+				}
+				
 			} elseif (isset($this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'])) {
 
 				$h = $this->mpdf->ColDetails[$this->mpdf->CurrCol]['bottom_margin'] - $this->mpdf->y;
