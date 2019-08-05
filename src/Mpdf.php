@@ -22483,9 +22483,11 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 									$this->DivLn($divh, -3, false);
 									$outerfilled = $this->y + $divh;
 									// Reset current block fill
-									$bcor = $this->blk[$this->blklvl]['bgcolorarray'];
-									if ($bcor) {
-										$this->SetFColor($bcor);
+									if(array_key_exists('bgcolorarray', $this->blk[$this->blklvl])) {
+										$bcor = $this->blk[$this->blklvl]['bgcolorarray'];
+										if ($bcor) {
+											$this->SetFColor($bcor);
+										}
 									}
 									$this->x = $bak_x;
 									$this->y = $bak_y;
